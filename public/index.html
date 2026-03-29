@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Calipso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-logo">
+      <img src="/logo.png" alt="Radio Calipso" style="height:40px;width:40px;object-fit:contain;">
+      Radio Calipso
+    </div>
+    <div class="topbar-nav"><a href="/users.html">Manage Users</a></div>
+  </nav>
+
+  <main>
+    <div class="now-playing-panel">
+
+      <!-- Left: art -->
+      <div class="art-col">
+        <img id="npArt" src="" alt="Channel art">
+      </div>
+
+      <!-- Right: info -->
+      <div class="info-col">
+        <div class="np-artist" id="npArtist">—</div>
+        <div class="np-track"  id="npTrack">—</div>
+        <div class="np-album"  id="npAlbum"></div>
+
+        <div class="np-quality">
+          <div>Stream quality: <span id="npGenre"></span></div>
+          <div><span id="npListeners"></span></div>
+        </div>
+
+        <div class="rate-section">
+          Rate this track
+          <button class="rate-btn" id="npRateUp"   onclick="rateNow(1)">👍</button>
+          <button class="rate-btn" id="npRateDown" onclick="rateNow(-1)">👎</button>
+        </div>
+
+        <div class="controls">
+          <button class="play-btn" id="playBtn" onclick="togglePlay()">
+        <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="pauseIcon" width="18" height="18" viewBox="0 0 24 24" fill="white" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#231F20"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+          <input type="range" id="volume" min="0" max="1" step="0.02" value="0.8">
+          <span class="status" id="status">Click play to start</span>
+        </div>
+        <div class="stream-url" id="streamUrl"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="previous-tracks">
+    <div class="previous-tracks-inner">
+      <h3>Previous tracks:</h3>
+      <div id="previousTracks">Loading…</div>
+    </div>
+  </div>
+
+  <audio id="audio"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

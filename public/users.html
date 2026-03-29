@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Calipso — Users</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <span class="topbar-logo" style="display:flex;align-items:center;gap:0.4rem;">
+      <img src="/logo.png" alt="" style="height:40px;width:40px;object-fit:contain;">
+      Radio Calipso
+    </span>
+    <a href="/">&#8592; Back to Player</a>
+  </nav>
+
+  <div class="container">
+    <h1>User Management</h1>
+    <div class="sub">Radio Calipso</div>
+
+    <div class="card">
+      <h2>Add User</h2>
+      <form id="addUserForm">
+        <input type="text" id="name" placeholder="Name" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <button type="submit" class="submit-btn">Add User</button>
+        <span id="formMsg"></span>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Users</h2>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Email</th><th>Created</th></tr>
+        </thead>
+        <tbody id="usersList">
+          <tr><td colspan="4" class="empty">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    async function loadUsers() {
+      const res = await fetch('/api/users');
+      const users = await res.json();
+      const tbody = document.getElementById('usersList');
+      if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="empty">No users yet.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = users.map(u => `
+        <tr>
+          <td>${u.id}</td>
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td>${new Date(u.created_at).toLocaleDateString()}</td>
+        </tr>
+      `).join('');
+    }
+
+    document.getElementById('addUserForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('formMsg');
+
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email })
+      });
+
+      if (res.ok) {
+        msg.textContent = 'User added!';
+        msg.className = 'success';
+        e.target.reset();
+        loadUsers();
+      } else {
+        const err = await res.json();
+        msg.textContent = err.error || 'Error adding user.';
+        msg.className = 'error';
+      }
+
+      setTimeout(() => msg.textContent = '', 3000);
+    });
+
+    loadUsers();
+  </script>
+</body>
+</html>
