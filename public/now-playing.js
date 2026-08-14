@@ -18,7 +18,7 @@ let currentTrackKey = null;
 
 function formatSampleRate(hz) {
   if (!hz) return '';
-  const khz = hz / 1000;
+  const khz = hz / 100;
   return khz % 1 === 0 ? `${khz}kHz` : `${khz.toFixed(1)}kHz`;
 }
 
