@@ -5,7 +5,7 @@ const ratingsRouter = require('./routes/ratings');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const GITHUB_TOKEN = '04bd35a947773f8fbc954d7d448bf988cb67fd13';
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -19,7 +19,7 @@ app.get('/api/health', (req, res) => {
 
 app.get('/api/github-status', async (req, res) => {
   const r = await fetch('https://api.github.com/rate_limit', {
-    headers: { Authorization: `token ${GITHUB_TOKEN}` },
+    headers: GITHUB_TOKEN ? { Authorization: `token ${GITHUB_TOKEN}` } : {},
   });
   res.json(await r.json());
 });
