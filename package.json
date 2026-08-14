@@ -6,10 +6,17 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/server/*.test.js test/client/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage test/server/*.test.js test/client/*.test.js",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "better-sqlite3": "^11.3.0",
     "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0",
+    "supertest": "^7.0.0"
   }
 }

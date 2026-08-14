@@ -6,3 +6,6 @@ data/
 *.db-shm
 .env
 *.zip
+playwright-report/
+test-results/
+.claude/scheduled_tasks.lock

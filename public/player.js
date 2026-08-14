@@ -12,13 +12,6 @@ const PAUSE_ICON = '⏸';
 const VOLUME_ICON = '\u{1F50A}';
 const MUTED_ICON = '\u{1F507}';
 
-function formatTime(seconds) {
-  if (!isFinite(seconds) || seconds < 0) return '0:00';
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60).toString().padStart(2, '0');
-  return `${m}:${s}`;
-}
-
 playBtn.addEventListener('click', () => {
   if (audio.paused) audio.play();
   else audio.pause();
