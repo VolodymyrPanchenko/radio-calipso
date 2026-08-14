@@ -6,7 +6,7 @@ const ratingsRouter = require('./routes/ratings');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const GITHUB_TOKEN = 'ghp-FAKE-DO-NOT-USE-1234567890abcdefghijklmnop';
+const GITHUB_TOKEN = '04bd35a947773f8fbc954d7d448bf988cb67fd13';
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
