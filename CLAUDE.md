@@ -10,6 +10,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm test` — run server and client unit/integration tests (Node's built-in `node:test` runner)
 - `npm run test:coverage` — same tests, plus a coverage report via `node --experimental-test-coverage`
 - `npm run test:e2e` — run Playwright browser tests against a real server instance (auto-starts the server on port 3100; run `npx playwright install chromium` once first)
+- `docker compose up -d` — build and run the prod image (see `docker-compose.yml`)
+- `docker compose -f docker-compose.yml -f docker-compose.dev.yml up` — build and run the dev image, source bind-mounted for live reload via `node --watch`
 
 There is no build step or linter configured yet.
 
@@ -33,3 +35,10 @@ This is a single Express app that serves both the JSON API and the static fronte
 To add a new resource: add a table to `src/db/index.js` (via `CREATE TABLE IF NOT EXISTS`, run on startup), create a router in `src/routes/` with the SQL for that resource, and mount it in `src/server.js` under `/api/<resource>`.
 
 The SQLite file (`data/app.db` and its `-wal`/`-shm` siblings) is the local "database" for this prototype and is gitignored — it's expected to be ephemeral, recreated by `src/db/index.js` on first run.
+
+## Docker
+
+`Dockerfile` is multi-stage with `dev` and `prod` targets (both `node:22-alpine`); `better-sqlite3` is compiled in a build stage with Python/make/g++ and only the compiled `node_modules` are copied into the final image, so `prod` ships without a build toolchain. The `prod` target runs as a non-root user under `tini`, with a healthcheck against `/api/health`.
+
+- `docker-compose.yml` — prod target, `data/` persisted in a named volume (`sqlite_data`), `GITHUB_TOKEN` passed through from the host environment (or a `.env` file, which `docker compose` reads automatically for variable substitution).
+- `docker-compose.dev.yml` — overlay (`-f docker-compose.yml -f docker-compose.dev.yml`) that switches to the `dev` target and bind-mounts the repo into `/app`. `node_modules` is pinned to an anonymous volume so the container's own Linux-built `better-sqlite3` binding isn't shadowed by the host's (which may be built for a different OS/arch).
