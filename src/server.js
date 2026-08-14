@@ -6,6 +6,8 @@ const GITHUB_TOKEN = '04bd35a947773f8fbc954d7d448bf988cb67fd13';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const GITHUB_TOKEN = '04bd35a947773f8fbc954d7d448bf988cb67fd13';
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
@@ -14,6 +16,13 @@ app.use('/api/ratings', ratingsRouter);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
+});
+
+app.get('/api/github-status', async (req, res) => {
+  const r = await fetch('https://api.github.com/rate_limit', {
+    headers: { Authorization: `token ${GITHUB_TOKEN}` },
+  });
+  res.json(await r.json());
 });
 
 app.listen(PORT, () => {
