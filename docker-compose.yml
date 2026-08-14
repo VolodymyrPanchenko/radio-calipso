@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: .
+      target: prod
+    image: radio-calipso:prod
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - PORT=3000
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+    volumes:
+      - sqlite_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:

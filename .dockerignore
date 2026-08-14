@@ -1,0 +1,13 @@
+node_modules
+data
+.git
+.env
+*.log
+npm-debug.log*
+test-results
+playwright-report
+.claude
+cdp_verify13.js
+Dockerfile
+docker-compose*.yml
+.dockerignore
