@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(curl -s http://localhost:3000/api)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const db = require\\(''./src/db/database''\\); console.log\\(db.prepare\\(''SELECT * FROM users''\\).all\\(\\)\\)\")",
+      "Bash(taskkill:*)",
+      "Bash(curl:*)",
+      "WebSearch",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:ottverse.com)",
+      "WebFetch(domain:gist.githubusercontent.com)",
+      "WebFetch(domain:somafm.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\(''''fs''''\\).readFileSync\\(''''/dev/stdin'''',''''utf8''''\\)\\); const ch=d.channels.find\\(c=>c.id===''''groovesalad''''\\); console.log\\(JSON.stringify\\(ch,null,2\\)\\)\")",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);const ch=j.channels.find\\(c=>c.id===''''groovesalad''''\\);console.log\\(JSON.stringify\\(ch,null,2\\)\\);}\\)\")",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);const ch=j.channels.find\\(c=>c.id===''''groovesalad''''\\);console.log\\(Object.keys\\(ch\\)\\);}\\);\")",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\(JSON.stringify\\(j\\).slice\\(0,600\\)\\);}\\);\")",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\(JSON.stringify\\(j.songs[0],null,2\\)\\);}\\);\")",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);const ch=j.channels.find\\(c=>c.id===''''groovesalad''''\\);console.log\\(JSON.stringify\\({image:ch.image,largeimage:ch.largeimage,xlimage:ch.xlimage},null,2\\)\\);}\\);\")",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\(j.results[0]?.artworkUrl100\\);}\\);\")",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\(''''results:'''', j.resultCount, j.results[0]?.artworkUrl100\\);}\\);\")"
+    ]
+  }
+}
